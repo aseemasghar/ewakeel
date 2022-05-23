@@ -26,6 +26,3 @@ exports.getAllLawyers =async (req,res)=>{
 }
 
 
-
-
-hjghjghjgjhghjhjg
