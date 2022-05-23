@@ -1,5 +1,5 @@
 const app = require('./app');
-const dotenv =require('dotenv');
+const dotenv =quire('dotenv');
 const connectDatabase = require('./config/database')
 
 dotenv.config({path:'backend/config/config.env'})
