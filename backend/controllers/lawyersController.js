@@ -24,3 +24,8 @@ exports.getAllLawyers =async (req,res)=>{
         lawyers
     })
 }
+
+
+
+
+hjghjghjgjhghjhjg
