@@ -26,7 +26,7 @@ exports.getAllLawyers =async (req,res)=>{
 }
 
 exports.updateLawyer = async(req,res,next)=>{
-    let lawyer = await Lawyer.findById(req.params.id);
+    const lawyer = await Lawyer.findById(req.params.id);
     if(!lawyer){
         return res.status(500).json({
             success:false,
@@ -58,6 +58,24 @@ exports.deleteLawyer = async(req,res,next)=>{
         message:"Lawyer deleted Successfully"
     })
 
+}
+
+
+exports.getLawyerDetails = async (req,res,next)=>{
+
+    const lawyer = await Lawyer.findById(req.params.id);
+    if(!lawyer){
+        return res.status(500).json({
+            success:false,
+            message:"Lawyer not found"
+        })
+    }
+    else{
+    res.status(200).json({
+        success:true,
+        lawyer
+    })
+    }
 }
 
 
