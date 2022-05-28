@@ -1,6 +1,8 @@
 const Lawyer = require('../models/lawyersModel');
+const ErrorHandler = require('../utils/errorHandler');
+const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 
-exports.createLawyer = async (req,res,next)=>{
+exports.createLawyer =catchAsyncErrors( async (req,res,next)=>{
 
 const lawyer = await Lawyer.create(req.body);
 
@@ -8,14 +10,12 @@ res.status(201).json({
 
     success : true,
     lawyer
-
+})
 })
 
-}
 
 
-
-exports.getAllLawyers =async (req,res)=>{
+exports.getAllLawyers = catchAsyncErrors( async (req,res)=>{
 
     const lawyers = await Lawyer.find();
 
@@ -23,9 +23,9 @@ exports.getAllLawyers =async (req,res)=>{
         success:true,
         lawyers
     })
-}
+})
 
-exports.updateLawyer = async(req,res,next)=>{
+exports.updateLawyer = catchAsyncErrors(async(req,res,next)=>{
     const lawyer = await Lawyer.findById(req.params.id);
     if(!lawyer){
         return res.status(500).json({
@@ -42,9 +42,9 @@ exports.updateLawyer = async(req,res,next)=>{
         success:true,
         lawyer
     })
-}
+})
 
-exports.deleteLawyer = async(req,res,next)=>{
+exports.deleteLawyer = catchAsyncErrors( async(req,res,next)=>{
     const lawyer = await Lawyer.findById(req.params.id);
     if(!lawyer){
         return res.status(500).json({
@@ -58,24 +58,21 @@ exports.deleteLawyer = async(req,res,next)=>{
         message:"Lawyer deleted Successfully"
     })
 
-}
+})
 
 
-exports.getLawyerDetails = async (req,res,next)=>{
+exports.getLawyerDetails = catchAsyncErrors( async (req,res,next)=>{
 
     const lawyer = await Lawyer.findById(req.params.id);
     if(!lawyer){
-        return res.status(500).json({
-            success:false,
-            message:"Lawyer not found"
-        })
+        return next(new ErrorHandler("Lawyer not found",404))
     }
-    else{
+   
     res.status(200).json({
         success:true,
         lawyer
     })
-    }
-}
+    
+})
 
 
