@@ -1,11 +1,18 @@
 const express = require('express');
 const errorMiddleware = require('./middleware/error');
 const app = express();
-app.use(express.json())
+const cookieParser = require('cookie-parser');
 
-const lawyers = require('./routes/lawyersRoute')
 
-app.use('/api/v1',lawyers)
+app.use(express.json());
+app.use(cookieParser());
+
+//Import Routes
+const lawyer = require('./routes/lawyersRoute');
+const client = require('./routes/clientsRoute');
+
+app.use('/api/v1',lawyer);
+app.use('/api/v1',client);
 
 // Middleware for errors
 
