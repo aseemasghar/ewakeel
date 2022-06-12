@@ -9,10 +9,10 @@ app.use(cookieParser());
 
 //Import Routes
 const lawyer = require('./routes/lawyersRoute');
-const client = require('./routes/clientsRoute');
+const user = require('./routes/userRoute');
 
 app.use('/api/v1',lawyer);
-app.use('/api/v1',client);
+app.use('/api/v1',user);
 
 // Middleware for errors
 

@@ -1,11 +1,10 @@
 const express = require('express');
 const { getAllLawyers, createLawyer, updateLawyer, deleteLawyer, getLawyerDetails } = require('../controllers/lawyersController');
-const { isAuthenticatedClient } = require('../middleware/auth');
+const { isAuthenticateduser,authorizeRoles } = require('../middleware/auth');
 
 const router = express.Router();
-
-router.route('/lawyers').get(isAuthenticatedClient, getAllLawyers);
-router.route('/lawyer/new').post(createLawyer);
-router.route('/lawyer/:id').put(updateLawyer).delete(deleteLawyer).get(getLawyerDetails);
+router.route('/lawyers').get(getAllLawyers);
+router.route('/lawyer/new').post(isAuthenticateduser,authorizeRoles('admin'),createLawyer);
+router.route('/lawyer/:id').put(isAuthenticateduser,authorizeRoles('admin'),updateLawyer).delete(isAuthenticateduser,authorizeRoles('admin'),deleteLawyer).get(getLawyerDetails);
 
 module.exports=router

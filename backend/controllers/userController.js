@@ -1,44 +1,44 @@
-const Client = require('../models/clientsModel');
+const User = require('../models/userModel');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const sendToken = require('../utils/jwtToken');
 
 
-//Register Client
-exports.registerClient = catchAsyncErrors( async(req,res,next)=>{
+//Register user
+exports.registeruser = catchAsyncErrors( async(req,res,next)=>{
     const {name,email,password} = req.body;
 
-    const client = await Client.create({
+    const user = await User.create({
 
         name,email,password
     });
 
-    sendToken(client,201,res);
+    sendToken(user,201,res);
 });
 
 
-// Login Client
-exports.loginClient = catchAsyncErrors(async(req,res,next)=>{
+// Login user
+exports.loginuser = catchAsyncErrors(async(req,res,next)=>{
 
     const {email,password} = req.body;
 // Cheking the email and password are given or not
 if(!email,!password){
     return next(new ErrorHandler("Please Enter email and password",400))
 }
-const client = await Client.findOne({email}).select("+password");
-if(!client){
+const user = await User.findOne({email}).select("+password");
+if(!user){
     return next(new ErrorHandler("Invalid Email and Password",401))
 }
-const isPasswordMatched = await client.comparePassword(password);
+const isPasswordMatched = await user.comparePassword(password);
 if(!isPasswordMatched){
     return next(new ErrorHandler("Invalid Credentials",401))
 }
 
-sendToken(client,200,res);
+sendToken(user,200,res);
 
 })
 
-//Logout Client
+//Logout user
 exports.logOut = catchAsyncErrors(async(req,res,next)=>{
     res.cookie("token",null,
     {
