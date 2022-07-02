@@ -65,7 +65,7 @@ const userSchema = new mongoose.Schema({
     return await bcrypt.compare(enteredPassword,this.password);
   }
   //Generating Password reset token
-  userSchema.method.getResetPasswordToken = function(){
+  userSchema.methods.getResetPasswordToken = function(){
     //Generating Token
     const resetToken = crypto.randomBytes(20).toString('hex');
     //Hashing and adding resetPasswordtoken to userSchema
