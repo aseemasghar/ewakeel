@@ -66,7 +66,7 @@ exports.deleteCase = catchAsyncErrors( async(req,res,next)=>{
 
 })
 
-
+//Get single case Details
 exports.getCaseDetails = catchAsyncErrors( async (req,res,next)=>{
 
     const Case = await Cases.findById(req.params.id);
