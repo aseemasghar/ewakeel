@@ -8,10 +8,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 //Import Routes
-const lawyer = require('./routes/lawyersRoute');
+const Case = require('./routes/caseRoute');
 const user = require('./routes/userRoute');
 
-app.use('/api/v1',lawyer);
+app.use('/api/v1',Case);
 app.use('/api/v1',user);
 
 // Middleware for errors

@@ -17,31 +17,37 @@ const userSchema = new mongoose.Schema({
       unique: true,
       validate: [validator.isEmail, "Please Enter a valid Email"],
     },
+    phone: {
+      type: Number,
+      maxLength: [15, "Phone cannot exceed 15 characters"],
+    },
+    address: {
+      type: String,
+    },
+    city: {
+      type: String,
+    },
+    state: {
+      type: String,
+    },
+    country: {
+      type: String,
+    },
     password: {
       type: String,
       required: [true, "Please Enter Your Password"],
       minLength: [8, "Password should be greater than 8 characters"],
       select: false,
     },
-    // avatar: {
-    //   public_id: {
-    //     type: String,
-    //     required: true,
-    //   },
-    //   url: {
-    //     type: String,
-    //     required: true,
-    //   },
-    // },
+    image: {
+        type: String,
+    },
+     
     role: {
       type: String,
-      default: "user",
+      default: "client",
     },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-  
+
     resetPasswordToken: String,
     resetPasswordExpire: Date,
   });

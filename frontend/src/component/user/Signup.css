@@ -1,8 +1,4 @@
-html, body {
-  margin: 0;
-  height: 100%;
-  overflow: hidden
-}
+
 .bg{
     font-family: 'Baloo Bhai', cursive;
     color: black;
@@ -20,6 +16,9 @@ html, body {
     background-attachment: fixed;
     background-size: cover;
     background-size:100%;
+    margin: 0;
+    height: 100%;
+    overflow: hidden
   }
 
   .form-layout{
@@ -56,10 +55,11 @@ html, body {
     color: white;
   }
   .bottom-bar{
-    background-color: tomato;
+    background-color: white;
     height: 3px;
     width: 50%;
     border: none;
+    border-radius: 5px;
     transition: all 0.5s;
 
   }
