@@ -20,7 +20,18 @@ const caseSchema = new mongoose.Schema({
       },
       description: {
         type: String
-      }
+      },
+      comments: [
+        {
+          user: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "user",
+          },
+          comment: {
+            type: String,
+          },
+        },
+      ],
 
 });
 

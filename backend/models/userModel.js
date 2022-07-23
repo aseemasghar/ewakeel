@@ -47,6 +47,12 @@ const userSchema = new mongoose.Schema({
       type: String,
       default: "client",
     },
+    cases: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Cases",
+      },
+    ],
 
     resetPasswordToken: String,
     resetPasswordExpire: Date,
@@ -62,7 +68,7 @@ const userSchema = new mongoose.Schema({
 
   // JWT Token
   userSchema.methods.getJWTToken = function(){
-    return jwt.sign({id:this._id},process.env.JWT_SECRET,{
+    return jwt.sign({_id:this._id},process.env.JWT_SECRET,{
       expiresIn : process.env.JWT_EXPIRE,
     })
   }

@@ -1,4 +1,5 @@
 const User = require('../models/userModel');
+const Cases = require('../models/caseModel');
 const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const sendToken = require('../utils/jwtToken');
@@ -156,6 +157,21 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     res.status(200).json({
       success: true,
     });
+  });
+  exports.getMyCases = catchAsyncErrors( async (req, res,next) => {
+   
+      const user = await User.findById(req.user._id);
+  
+      const cases = [];
+      for (let i = 0; i < user.cases.length; i++) {
+        const Case = await Cases.findById(user.cases[i]).populate();
+        cases.push(Case);
+      }
+  
+      res.status(200).json({
+        success: true,
+        cases,
+      });  
   });
 
   // Get all users(admin)

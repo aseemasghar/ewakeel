@@ -10,7 +10,7 @@ exports.isAuthenticateduser = catchAsyncErrors(async(req,res,next)=>{
         return next(new ErrorHandler("Please Login first",401));
         }
         const decodedData = jwt.verify(token,process.env.JWT_SECRET);
-        req.user = await user.findById(decodedData.id);
+        req.user = await user.findById(decodedData._id);
         next();
 });
 exports.authorizeRoles = (...Roles)=>{
