@@ -30,8 +30,10 @@
   }
   .already{
     text-align: center;
-    justify-content: center;
-    
+    justify-content: center;  
+  }
+  .already a{
+   font-size: medium;  
   }
   .lawyer-client-toggle {
     display: flex;

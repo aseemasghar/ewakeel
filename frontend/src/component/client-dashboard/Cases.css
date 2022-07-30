@@ -1,0 +1,24 @@
+
+.DialogBox {
+    min-width: 500px;
+    height: 100vh;
+    padding: 2vmax;
+  }
+.commentForm {
+    /* display: flex; */
+    margin: 1vmax;
+  }
+  .commentForm > input {
+    width: 100%;
+    margin: 1vmax 0vmax;
+    padding: 1vmax 1vmax;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 10px;
+    font: 100 1vmax "Roboto", sans-serif;
+  }
+  .commentForm > button {
+    border-radius: 0%;
+    margin: 1vmax 0vmax;
+  }
+  

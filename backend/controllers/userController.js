@@ -4,20 +4,22 @@ const ErrorHandler = require('../utils/errorHandler');
 const catchAsyncErrors = require('../middleware/catchAsyncErrors');
 const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail.js');
+const cloudinary = require("cloudinary");
 
 
 //Register user
 exports.registeruser = catchAsyncErrors( async(req,res,next)=>{
-    const {name,email,password,confirmPassword} = req.body;
+
+    const {avatar,name,email,password,confirmPassword,role,country,city,address,phone,courtType} = req.body;
     if(password!==confirmPassword){
       return next(new ErrorHandler("Password does not match",400))
     }
+   
     const user = await User.create({
-        name,email,password
+    avatar:{public_id:"req.bod.public_id",url:"req.body.url"}, name,email,password,role,country,city,address,phone,courtType
     });
     sendToken(user,201,res);
-  
-  
+     
 });
 
 
@@ -124,47 +126,58 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
 
   // update User Profile
 exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
+
     const newUserData = {
+     
       name: req.body.name,
       email: req.body.email,
+      country: req.body.country,
+      city:req.body.city,
+      address: req.body.address,
+      phone: req.body.phone,
+      courtType: req.body.courtType,
     };
+
+     
+    if (req.body.avatar !== "") {
+      const user = await User.findById(req.user.id);
   
-    // if (req.body.avatar !== "") {
-    //   const user = await User.findById(req.user.id);
+      const imageId = user.avatar.public_id;
   
-    //   const imageId = user.avatar.public_id;
+      await cloudinary.v2.uploader.destroy(imageId);
   
-    //   await cloudinary.v2.uploader.destroy(imageId);
+      const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
+        folder: "avatars",
+        width: 150,
+        crop: "scale",
+      });
   
-    //   const myCloud = await cloudinary.v2.uploader.upload(req.body.avatar, {
-    //     folder: "avatars",
-    //     width: 150,
-    //     crop: "scale",
-    //   });
-  
-    //   newUserData.avatar = {
-    //     public_id: myCloud.public_id,
-    //     url: myCloud.secure_url,
-    //   };
-    // }
+      newUserData.avatar = {
+        public_id: myCloud.public_id,
+        url: myCloud.secure_url,
+      };
+    }
   
     const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
       new: true,
       runValidators: true,
       useFindAndModify: false,
     });
+    await user.save();
   
     res.status(200).json({
       success: true,
+      message: "Profile Updated",
     });
   });
+
   exports.getMyCases = catchAsyncErrors( async (req, res,next) => {
    
       const user = await User.findById(req.user._id);
   
       const cases = [];
       for (let i = 0; i < user.cases.length; i++) {
-        const Case = await Cases.findById(user.cases[i]).populate();
+        const Case = await Cases.findById(user.cases[i]).populate("comments.user");
         cases.push(Case);
       }
   

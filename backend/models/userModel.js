@@ -5,6 +5,10 @@ const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
+  avatar: {
+    public_id: String,
+    url: String,
+  },
     name: {
       type: String,
       required: [true, "Please Enter Your Name"],
@@ -17,6 +21,12 @@ const userSchema = new mongoose.Schema({
       unique: true,
       validate: [validator.isEmail, "Please Enter a valid Email"],
     },
+    password: {
+      type: String,
+      required: [true, "Please Enter Your Password"],
+      minLength: [8, "Password should be greater than 8 characters"],
+      select: false,
+    },
     phone: {
       type: Number,
       maxLength: [15, "Phone cannot exceed 15 characters"],
@@ -27,25 +37,14 @@ const userSchema = new mongoose.Schema({
     city: {
       type: String,
     },
-    state: {
-      type: String,
-    },
     country: {
       type: String,
     },
-    password: {
-      type: String,
-      required: [true, "Please Enter Your Password"],
-      minLength: [8, "Password should be greater than 8 characters"],
-      select: false,
-    },
-    image: {
-        type: String,
-    },
-     
     role: {
       type: String,
-      default: "client",
+    },
+    courtType: {
+      type: String,
     },
     cases: [
       {

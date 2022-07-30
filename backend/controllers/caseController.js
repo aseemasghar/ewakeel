@@ -16,7 +16,7 @@ exports.createCase =catchAsyncErrors( async (req,res,next)=>{
    
 const Case = await Cases.create(newCase);
 const user = await User.findById(req.user._id);
-user.cases.push(Case._id);
+user.cases.unshift(Case._id);
 await user.save();
 res.status(201).json({
 
@@ -38,7 +38,7 @@ exports.getAllCases = catchAsyncErrors( async (req,res)=>{
 })
 // Update Case
 exports.updateCase = catchAsyncErrors(async(req,res,next)=>{
-    const Case = await Cases.findById(req.params.id);
+    var Case = await Cases.findById(req.params.id);
     if(!Case){
         return res.status(500).json({
             success:false,
