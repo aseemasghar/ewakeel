@@ -2,6 +2,17 @@ import { createReducer } from "@reduxjs/toolkit";
 const initialState = {};
 
 export const caseReducer = createReducer(initialState, {
+  addCommentRequest: (state) => {
+    state.loading = true;
+  },
+  addCommentSuccess: (state, action) => {
+    state.loading = false;
+    state.message = action.payload;
+  },
+  addCommentFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
   editCaseRequest: (state) => {
     state.loading = true;
   },
@@ -70,6 +81,23 @@ export const myCasesReducer = createReducer(initialState, {
       state.cases = action.payload;
     },
     myCasesFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearErrors: (state) => {
+      state.error = null;
+    },
+  });
+
+  export const allCasesReducer = createReducer(initialState, {
+    allCasesRequest: (state) => {
+      state.loading = true;
+    },
+    allCasesSuccess: (state, action) => {
+      state.loading = false;
+      state.cases = action.payload;
+    },
+    allCasesFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

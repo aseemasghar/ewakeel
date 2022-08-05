@@ -15,6 +15,12 @@ const userSchema = new mongoose.Schema({
       maxLength: [30, "Name cannot exceed 30 characters"],
       minLength: [4, "Name should have more than 4 characters"],
     },
+    companyName:{
+      type: String,
+    },
+    about:{
+      type: String,
+    },
     email: {
       type: String,
       required: [true, "Please Enter Your Email"],
@@ -28,8 +34,15 @@ const userSchema = new mongoose.Schema({
       select: false,
     },
     phone: {
-      type: Number,
-      maxLength: [15, "Phone cannot exceed 15 characters"],
+      type: String,
+      // maxLength: [15, "Phone cannot exceed 15 characters"],
+    },
+    landline: {
+      type: String,
+      // maxLength: [20, "Phone cannot exceed 20 characters"],
+    },
+    skype: {
+      type: String,
     },
     address: {
       type: String,
@@ -37,7 +50,19 @@ const userSchema = new mongoose.Schema({
     city: {
       type: String,
     },
+    province: {
+      type: String,
+    },
     country: {
+      type: String,
+    },
+    degreeName: {
+      type: String,
+    },
+    instituteName: {
+      type: String,
+    },
+    experience: {
       type: String,
     },
     role: {

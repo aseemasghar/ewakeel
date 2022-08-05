@@ -1,0 +1,48 @@
+  
+  .DialogBox {
+    min-width: 500px;
+    height: 100vh;
+    padding: 2vmax;
+  }
+  .caseUser {
+    display: flex;
+    padding-top: 2vmax;
+    padding-left: 1vmax;
+    padding-bottom: 0px;
+   
+
+  }
+  
+  .caseUser > a {
+    text-decoration: none;
+    color:royalblue;
+    margin: 1vmax;
+  }
+  .commentForm {
+    display: flex;
+    flex-direction: column;
+    margin: 1vmax;
+  }
+
+  .commentForm > textarea {
+    width: 100%;
+    padding: 1vmax 2vmax;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.288);
+    border-radius: 5px ;
+    font: 100 1vmax "Roboto", sans-serif;
+    
+  }
+  .commentForm > button {
+    border-radius: 5px;
+   
+  }
+  
+  @media screen and (max-width: 600px) {
+ .DialogBox {
+    min-width: 300px;
+    height: 100vh;
+    padding: 2vmax;
+  }
+  }
+  

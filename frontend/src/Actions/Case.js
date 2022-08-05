@@ -32,6 +32,36 @@ export const createNewCase = (title,city,description) => async (dispatch) => {
       });
     }
   };
+
+  export const addCommentOnCase = (id, comment) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "addCommentRequest",
+      });
+  
+      const { data } = await axios.post(
+        `/api/v1/case/bid/${id}`,
+        {
+          comment,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      dispatch({
+        type: "addCommentSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "addCommentFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
   export const editCase = (id,title,city,description) => async (dispatch) => {
     try {
       dispatch({
@@ -77,6 +107,25 @@ export const createNewCase = (title,city,description) => async (dispatch) => {
     } catch (error) {
       dispatch({
         type: "deleteCaseFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  export const getAllCases = () => async (dispatch) => {
+    try {
+      dispatch({
+        type: "allCasesRequest",
+      });
+  
+      const { data } = await axios.get("/api/v1/cases");
+      dispatch({
+        type: "allCasesSuccess",
+        payload: data.cases,
+      });
+    } catch (error) {
+      dispatch({
+        type: "allCasesFailure",
         payload: error.response.data.message,
       });
     }

@@ -1,19 +1,14 @@
 import './Cases.css'
 import { Button, Typography, Dialog } from "@mui/material";
 import React from 'react'
-import  { useEffect } from "react";
+// import  { useEffect } from "react";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch  } from "react-redux";
 import { editCase,deleteCase } from "../../Actions/Case";
-// import {
-//   addCommentOnPost,
-//   deletePost,
-//   likePost,
-//   updatePost,
-// } from "../../Actions/Post";
+
 import { getMyCases, loadUser } from "../../Actions/User";
 // import User from "../User/User";
-// import CommentCard from "../CommentCard/CommentCard";
+import BidsCard from "./BidsCard";
 
 
 const Cases = ({
@@ -22,24 +17,21 @@ const Cases = ({
   city,
   date,
   description,
-  // comments = [],
+  comments = [],
   // userImage,
   // userName,
   // userId,
-  // isDelete = false,
-  // isAccount = false,
+
 }) => {
 
-  // const [commentValue, setCommentValue] = useState("");
-  // const [commentToggle, setCommentToggle] = useState(false);
+  const [commentToggle, setCommentToggle] = useState(false);
   const [caseToggle, setCaseToggle] = useState(false);
   const [titleValue, setTitleValue] = useState(title);
   const [cityValue, setCityValue] = useState(city);
-  const [dateValue, setDateValue] = useState(date);
   const [descriptionValue, setDescriptionValue] = useState(description);
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
+  // const { user } = useSelector((state) => state.user);
   // dispatch(getMyCases());
 
   const editCaseHandler = (e) => {
@@ -57,7 +49,7 @@ const Cases = ({
     <>
     <div className="container ">
       
-        <div className="case w-75 m-2  row border border-secondary rounded">
+        <div className="case w-75 m-2 bg-light bg-gradient  row border border-secondary rounded">
           <h6>
             <b>Title : </b>{titleValue}
           </h6>
@@ -65,7 +57,7 @@ const Cases = ({
             <b>Location : </b>{cityValue}
           </h6>
           <h6>
-            <b>Posted on : </b>{dateValue}
+            <b>Posted on : </b>{date}
           </h6>
           <h6>
             <b>Case Description : </b>{descriptionValue}
@@ -77,10 +69,13 @@ const Cases = ({
           <button onClick={deleteCaseHandler} className="col-md-4 w-25 mb-2 btn btn-danger">
             Delete
           </button>
+          <button onClick={() => setCommentToggle(!commentToggle)}  className="col-md-4 mx-2 w-25 mb-2 btn btn-success">
+            Available Bids
+          </button>
         </div>
         <Dialog
         open={caseToggle}
-        // onClose={() => setCaseToggle(!caseToggle)}
+        onClose={() => setCaseToggle(!caseToggle)}
       >
         <div className="DialogBox">
           <Typography variant="h4">Edit Case Details</Typography>
@@ -108,10 +103,35 @@ const Cases = ({
               required
             />
 
-            <Button onClick={() => setCaseToggle(!caseToggle)}  type="submit" variant="contained">
+            <Button  type="submit" variant="contained">
               Update
             </Button>
           </form>
+        </div>
+      </Dialog>
+
+      <Dialog
+        open={commentToggle}
+        onClose={() => setCommentToggle(!commentToggle)}
+      >
+        <div className="DialogBox">
+          <Typography variant="h4">Available Bids</Typography>
+
+          {comments.length > 0 ? (
+            comments.map((item) => (
+              <BidsCard
+                userId={item.user._id}
+                name={item.user.name}
+                avatar={item.user.avatar.url}
+                comment={item.comment}
+                commentId={item._id}
+                key={item._id}
+                
+              />
+            ))
+          ) : (
+            <Typography>No Bids Yet</Typography>
+          )}
         </div>
       </Dialog>
 

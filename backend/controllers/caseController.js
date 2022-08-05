@@ -29,11 +29,11 @@ res.status(201).json({
 // Get cases
 exports.getAllCases = catchAsyncErrors( async (req,res)=>{
     // const user = req.user.id;
-    const Case = await Cases.find();
+    const cases = await Cases.find().populate("user");
 
     res.status(200).json({
         success:true,
-        Case
+        cases:cases.reverse(),
     })
 })
 // Update Case
@@ -105,7 +105,7 @@ exports.bidOnCase = catchAsyncErrors( async (req, res,next) => {
         await Case.save();
         return res.status(200).json({
           success: true,
-          message: "Comment added",
+          message: "Bid add Successfuly",
         });
   });
 

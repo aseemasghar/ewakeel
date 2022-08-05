@@ -1,8 +1,16 @@
 import React from 'react'
 import './MyProfile.css'
 import ClientNav from './ClientNav.js'
+// import { useEffect} from "react";
+import {  useSelector } from "react-redux";
+// import { loadUser } from '../../Actions/User';
 
 const MyProfile = () => {
+
+  // const dispatch = useDispatch();
+  const { user ,loading:userLoading} = useSelector((state) => state.user);
+  
+
   return (
     <>
     <ClientNav/>
@@ -10,30 +18,30 @@ const MyProfile = () => {
     <div className="container">
     
     <div className="my-2 card">
-  <img src={require('../images/card-image.png')} alt="User"/>
-  <h1>Ali Raza</h1>
-  <p className="title">ali@gmail.com</p>
-  <p>03125678323</p>
+  <img src={user.avatar.url} alt="User"  />
+  <h1>{user.name}</h1>
+  <p className="title">{user.email}</p>
+  <p>{user.phone}</p>
   <p><button>Contact Me</button></p>
 </div>
 
 <div className="my-3 contact">
   <h4 className="p-4 rounded text-light bg-secondary"><i className="fa-solid fa-address-book"></i> Contact Details</h4>
   <div className="m-3 row">
-    <h5 className="col"><i className="fa-solid fa-envelope"></i> Email : ali@gmail.com</h5>
-    <h5 className="col"><i className="fa-solid fa-phone"></i> Phone : 03453465789</h5>
+    <h5 className="col"><i className="fa-solid fa-envelope"></i> {user.email}</h5>
+    <h5 className="col"><i className="fa-solid fa-phone"></i> {user.phone}</h5>
   </div>
 </div>
 
 <div className="adress">
   <h4 className="p-4 rounded text-light bg-secondary"><i className="fa-solid fa-address-card"></i> Address</h4>
   <div className="row m-3">
-    <h5 className="col"><i className="fa-solid fa-location-dot"></i> Address : Stret no 23 H-10 Islamabd</h5>
-    <h5 className="col"><i className="fa-solid fa-location-dot"></i> City : Islamabad</h5>
+    <h5 className="col"><i className="fa-solid fa-location-dot"></i> Address : {user.address}</h5>
+    <h5 className="col"><i className="fa-solid fa-location-dot"></i> City : {user.city}</h5>
   </div>
   <div className="row m-3">
-    <h5 className="col"><i className="fa-solid fa-location-dot"></i> State : Punjab</h5>
-    <h5 className="col"><i className="fa-solid fa-location-dot"></i> Country : Pakistan</h5>
+    <h5 className="col"><i className="fa-solid fa-location-dot"></i> State : {user.province}</h5>
+    <h5 className="col"><i className="fa-solid fa-location-dot"></i> Country : {user.country}</h5>
   </div>
 </div>
 

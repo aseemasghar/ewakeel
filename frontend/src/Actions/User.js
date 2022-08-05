@@ -44,37 +44,61 @@ export const loadUser = () => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: "LoadUserFailure",
-      payload: error.response.data.message,
+      // payload: error.response.data.message,
     });
   }
 };
-export const registerUser =(name, email, password,confirmPassword,role,city,country,address,phone,courtType) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "RegisterRequest",
-    });
+export const registerUser =
+  (
+    name,
+    email,
+    password,
+    confirmPassword,
+    role,
+    city,
+    country,
+    address,
+    phone,
+    courtType
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "RegisterRequest",
+      });
 
-    const { data } = await axios.post(
-      "/api/v1/register",
-      { name, email, password,confirmPassword,role,city,country,address,phone,courtType },
-      {
-        headers: {
-          "Content-Type": "application/json",
+      const { data } = await axios.post(
+        "/api/v1/register",
+        {
+          name,
+          email,
+          password,
+          confirmPassword,
+          role,
+          city,
+          country,
+          address,
+          phone,
+          courtType,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    dispatch({
-      type: "RegisterSuccess",
-      payload: data.user,
-    });
-  } catch (error) {
-    dispatch({
-      type: "RegisterFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: "RegisterSuccess",
+        payload: data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: "RegisterFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const getMyCases = () => async (dispatch) => {
   try {
@@ -94,60 +118,116 @@ export const getMyCases = () => async (dispatch) => {
     });
   }
 };
-export const updateProfile = (avatar,name, email,phone,address,city,state,country,courtType ) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "updateProfileRequest",
-    });
+export const updateProfile =
+  (
+    avatar,
+    name,
+    email,
+    phone,
+    address,
+    city,
+    province,
+    country,
+    companyName,
+    about,
+    landline,
+    skype,
+    degreeName,
+    instituteName,
+    experience,
+    courtType,
+  ) =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "updateProfileRequest",
+      });
 
-    const { data } = await axios.put(
-      "/api/v1/me/update",
-      { avatar, name, email,phone,address,city,state,country,courtType },
-      {
-        headers: {
-          "Content-Type": "application/json",
+      const { data } = await axios.put(
+        "/api/v1/me/update",
+        {
+          avatar,
+          name,
+          email,
+          phone,
+          address,
+          city,
+          province,
+          country,
+          companyName,
+          about,
+          landline,
+          skype,
+          degreeName,
+          instituteName,
+          experience,
+          courtType,
         },
-      }
-    );
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    dispatch({
-      type: "updateProfileSuccess",
-      payload: data.message,
-    });
-  } catch (error) {
-    dispatch({
-      type: "updateProfileFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
-export const updatePassword =(oldPassword, newPassword,confirmPassword) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "updatePasswordRequest",
-    });
+      dispatch({
+        type: "updateProfileSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updateProfileFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+export const updatePassword =
+  (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "updatePasswordRequest",
+      });
 
-    const { data } = await axios.put(
-      "/api/v1/password/update",
-      { oldPassword, newPassword ,confirmPassword},
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+      const { data } = await axios.put(
+        "/api/v1/password/update",
+        { oldPassword, newPassword, confirmPassword },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-    dispatch({
-      type: "updatePasswordSuccess",
-      payload: data.message,
-    });
-  } catch (error) {
-    dispatch({
-      type: "updatePasswordFailure",
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: "updatePasswordSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "updatePasswordFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  export const getUserProfile = (id) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "userProfileRequest",
+      });
+  
+      const { data } = await axios.get(`/api/v1/user/${id}`);
+      dispatch({
+        type: "userProfileSuccess",
+        payload: data.user,
+      });
+    } catch (error) {
+      dispatch({
+        type: "userProfileFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const logoutUser = () => async (dispatch) => {
   try {

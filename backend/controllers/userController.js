@@ -10,13 +10,13 @@ const cloudinary = require("cloudinary");
 //Register user
 exports.registeruser = catchAsyncErrors( async(req,res,next)=>{
 
-    const {avatar,name,email,password,confirmPassword,role,country,city,address,phone,courtType} = req.body;
+    const {avatar,name,email,password,confirmPassword,role,country,city,province,address,phone,courtType} = req.body;
     if(password!==confirmPassword){
       return next(new ErrorHandler("Password does not match",400))
     }
    
     const user = await User.create({
-    avatar:{public_id:"req.bod.public_id",url:"req.body.url"}, name,email,password,role,country,city,address,phone,courtType
+    avatar:{public_id:"req.bod.public_id",url:"req.body.url"}, name,email,password,role,country,province,city,address,phone,courtType
     });
     sendToken(user,201,res);
      
@@ -130,11 +130,19 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     const newUserData = {
      
       name: req.body.name,
+      companyName: req.body.companyName,
+      about: req.body.about,
       email: req.body.email,
       country: req.body.country,
+      province: req.body.province,
       city:req.body.city,
       address: req.body.address,
       phone: req.body.phone,
+      landline: req.body.landline,
+      skype: req.body.skype,
+      degreeName: req.body.degreeName,
+      instituteName: req.body.instituteName,
+      experience: req.body.experience,
       courtType: req.body.courtType,
     };
 

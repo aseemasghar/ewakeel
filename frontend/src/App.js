@@ -19,6 +19,7 @@ import ProfileSettings from './component/client-dashboard/ProfileSettings';
 import PostCase from './component/client-dashboard/PostCase';
 import MyCases from './component/client-dashboard/MyCases';
 import EditCase from './component/client-dashboard/EditCase';
+import GetLawyerProfile from './component/client-dashboard/GetLawyerProfile';
 
 
 // Lawyer Dashboard Imports
@@ -26,6 +27,7 @@ import LawyerProfile from './component/lawyer-dashboard/LawyerProfile';
 import LawyerProfileSettings from './component/lawyer-dashboard/LawyerProfileSettings';
 import ViewAllCases from './component/lawyer-dashboard/ViewAllCases';
 import LawyerCases from './component/lawyer-dashboard/LawyerCases';
+import GetClientProfile from './component/lawyer-dashboard/GetClientProfile';
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -52,6 +54,7 @@ function App() {
       <Route  path='/post-a-case' element={isAuthenticated?<PostCase/>:<Login/>}/>
       <Route  path='/my-cases' element={isAuthenticated?<MyCases/>:<Login/>}/>
       <Route  path='/edit-client-case' element={<EditCase/>}/>
+      <Route  path='/lawyer/:id' element={isAuthenticated?<GetLawyerProfile/>:<Login/>}/>
       
 
       {/* Lawyer Dashboard Routes */}
@@ -59,6 +62,9 @@ function App() {
       <Route  path='/profilesettings' element={isAuthenticated?<LawyerProfileSettings/>:<Login/>}/>
       <Route  path='/viewallcases' element={isAuthenticated?<ViewAllCases/>:<Login/>}/>
       <Route  path='/mycases' element={isAuthenticated?<LawyerCases/>:<Login/>}/>
+      <Route  path='/user/:id' element={isAuthenticated?<GetClientProfile/>:<Login/>}/>
+     
+     
 
     </Routes>
   </BrowserRouter>

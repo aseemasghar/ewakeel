@@ -1,17 +1,29 @@
-import React from 'react'
-import LawyerNav from './LawyerNav'
-import './LawyerProfile.css'
-import {  useSelector } from "react-redux";
+import React from "react";
+import { useEffect } from "react";
+import "./GetLawyerProfile.css";
+import ClientNav from "./ClientNav";
+import { getUserProfile } from "../../Actions/User";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
-const LawyerProfile = () => {
-  const { user ,loading:userLoading} = useSelector((state) => state.user);
+const GetLawyerProfile = () => {
+    const dispatch = useDispatch();
+  const params = useParams();
 
-
-
+  useEffect(() => {
+    dispatch(getUserProfile(params.id));
+  }, [dispatch, params.id]);
+  const {
+    user,
+    // loading: userLoading,
+    // error: userError,
+  } = useSelector((state) => state.userProfile);
   return (
-    <>   
-   <LawyerNav/>
-   <div className="container">
+    <>
+    <ClientNav/>
+    {user && (
+        <>
+          <div className="container">
     
     <div className="my-2 card">
   <img src={user.avatar.url} alt="Lawyer Avatar" />
@@ -81,9 +93,12 @@ const LawyerProfile = () => {
 
 
 </div>
-  
+          </>
+      )}
+    
+    
     </>
   )
 }
 
-export default LawyerProfile
+export default GetLawyerProfile

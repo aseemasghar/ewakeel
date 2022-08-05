@@ -12,5 +12,5 @@ router.route('/my/cases').get(isAuthenticateduser,getMyCases);
 router.route('/password/update').put(isAuthenticateduser,updatePassword);
 router.route('/me/update').put(isAuthenticateduser,updateProfile);
 router.route('/admin/users').get(isAuthenticateduser,authorizeRoles('admin'),getAllUser);
-router.route('/admin/user/:id').get(isAuthenticateduser,authorizeRoles('admin'),getSingleUser).delete(isAuthenticateduser,authorizeRoles('admin'),deleteUser);
+router.route('/user/:id').get(isAuthenticateduser,getSingleUser).delete(isAuthenticateduser,authorizeRoles('admin'),deleteUser);
 module.exports = router;

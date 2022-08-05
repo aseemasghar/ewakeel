@@ -36,10 +36,9 @@ const MyCases = () => {
               description={Case.description}
               comments={Case.comments}
               // userImage={Case.user.avatar.url}
-              userName={Case.user.name}
-              userId={Case.user._id}
-              // isAccount={true}
-              // isDelete={true}
+              // userName={Case.user.name}
+              // userId={Case.user._id}
+            
             />
           ))
         ) : (

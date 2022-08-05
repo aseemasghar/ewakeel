@@ -29,6 +29,8 @@ const Signup = () => {
     e.preventDefault();
     dispatch(registerUser(name, email, password,confirmPassword,role,city,country,address,phone,courtType));
   };
+  
+ 
 
   useEffect(() => {
     if (error) {
@@ -172,11 +174,7 @@ const Signup = () => {
                 <select onChange={(e) => setcourtType(e.target.value)} id="inputcourt" className="form-select">
                   <option>Select</option>
                   <option>Supreme Court</option>
-                  <option>High Court Islamabad</option>
-                  <option>High Court Lahore</option>
-                  <option>High Court Quetta</option>
-                  <option>High Court Peshawar</option>
-                  <option>High Court Sindh</option>
+                  <option>High Court</option>
                   <option>District Court</option>
                   <option>Session Court</option>
                 </select>
