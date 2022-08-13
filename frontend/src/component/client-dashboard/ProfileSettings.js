@@ -4,6 +4,7 @@ import ClientNav from "./ClientNav";
 import { loadUser, updateProfile } from "../../Actions/User";
 import { useAlert } from "react-alert";
 import { updatePassword } from "../../Actions/User";
+import Footer from "../Footer/Footer";
 
 const Profilesettings = () => {
   const { loading, error, user } = useSelector((state) => state.user);
@@ -88,10 +89,6 @@ const Profilesettings = () => {
       dispatch({ type: "clearErrors" });
     }
 
-    if (updateError) {
-      alert.error(updateError);
-      dispatch({ type: "clearErrors" });
-    }
 
     if (message) {
       alert.success(message);
@@ -281,6 +278,7 @@ const Profilesettings = () => {
                 </label>
                 <input
                   type="password"
+                  required
                   className="form-control"
                   id="old-password"
                   
@@ -293,6 +291,7 @@ const Profilesettings = () => {
                 </label>
                 <input
                   type="password"
+                  required
                   className="form-control"
                   id="new-password"
                   
@@ -305,6 +304,7 @@ const Profilesettings = () => {
                 </label>
                 <input
                   type="password"
+                  required
                   className="form-control"
                   id="repeat-password"
                  
@@ -326,6 +326,7 @@ const Profilesettings = () => {
           </button>
         </form>
       </div>
+      <Footer/>
     </>
   );
 };

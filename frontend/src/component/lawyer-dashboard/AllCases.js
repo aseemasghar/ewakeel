@@ -2,10 +2,10 @@ import React from 'react'
 import './AllCases.css'
 import { Avatar,Button, Typography, Dialog } from "@mui/material";
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addCommentOnCase,getAllCases } from "../../Actions/Case";
 import { Link } from "react-router-dom";
-import User from '../GetUser/User'
+// import User from '../GetUser/User'
 
 
 
@@ -100,7 +100,7 @@ const AllCases = ({
              
             />
 
-            <Button type="submit" variant="contained">
+            <Button  onClick={() => setCommentToggle(!commentToggle)} type="submit" variant="contained">
               Submit
             </Button>
           </form>

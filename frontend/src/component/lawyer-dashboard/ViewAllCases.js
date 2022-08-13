@@ -1,20 +1,37 @@
 import React from 'react'
 import LawyerNav from './LawyerNav.js'
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getAllCases } from "../../Actions/Case";
 import AllCases from './AllCases';
+import { useAlert } from "react-alert";
+import Footer from '../Footer/Footer.js';
 
 const ViewAllCases = () => {
   const dispatch = useDispatch();
+  const alert = useAlert();
 
   // const { user ,loading:userLoading} = useSelector((state) => state.user);
-  const {loading, cases } = useSelector((state) => state.allCases);
+  const { cases } = useSelector((state) => state.allCases);
+  const { error,message } = useSelector((state) => state.case);
 
 
   useEffect(() => {
     dispatch(getAllCases());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch({ type: "clearErrors" });
+    }
+
+    if (message) {
+      alert.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error,alert, message]);
+
   return (
     <>
     <LawyerNav/>
@@ -43,6 +60,7 @@ const ViewAllCases = () => {
           <h2 className='text-center' variant="h6">No Cases Available</h2>
         )}
     
+    <Footer/>
     </>
   )
 }

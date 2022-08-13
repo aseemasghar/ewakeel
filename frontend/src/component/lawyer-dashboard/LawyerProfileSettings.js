@@ -4,9 +4,10 @@ import LawyerNav from "./LawyerNav.js";
 import { loadUser, updateProfile } from "../../Actions/User";
 import { useAlert } from "react-alert";
 import { updatePassword } from "../../Actions/User";
+import Footer from "../Footer/Footer.js";
 
 const LawyerProfileSettings = () => {
-  const { loading, error, user } = useSelector((state) => state.user);
+  const { error, user } = useSelector((state) => state.user);
   const {
     loading: updateLoading,
     error: updateError,
@@ -427,6 +428,8 @@ const LawyerProfileSettings = () => {
           </button>
         </form>
       </div>
+
+      <Footer/>
     </>
   );
 };

@@ -14,6 +14,7 @@ import Login from './component/user/Login';
 import About from './component/About/About.js';
 
 // Client Dashboard Imports
+import ClientHome from './component/client-dashboard/ClientHome';
 import MyProfile from './component/client-dashboard/MyProfile';
 import ProfileSettings from './component/client-dashboard/ProfileSettings';
 import PostCase from './component/client-dashboard/PostCase';
@@ -28,6 +29,13 @@ import LawyerProfileSettings from './component/lawyer-dashboard/LawyerProfileSet
 import ViewAllCases from './component/lawyer-dashboard/ViewAllCases';
 import LawyerCases from './component/lawyer-dashboard/LawyerCases';
 import GetClientProfile from './component/lawyer-dashboard/GetClientProfile';
+
+//Admin Dashboard
+import AdminLogin from './component/admin-dashboard/AdminLogin'
+import Cases from './component/admin-dashboard/Cases';
+import Users from './component/admin-dashboard/Users';
+
+
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -49,6 +57,7 @@ function App() {
       <Route  path='/about' element={<About/>}/>
 
       {/* Client Dashboard Routes */}
+      <Route  path='/client-home' element={isAuthenticated?<ClientHome/>:<Login/>}/>
       <Route  path='/my-account' element={isAuthenticated?<MyProfile/>:<Login/>}/>
       <Route  path='/profile-settings' element={isAuthenticated?<ProfileSettings/>:<Login/>}/>
       <Route  path='/post-a-case' element={isAuthenticated?<PostCase/>:<Login/>}/>
@@ -64,6 +73,10 @@ function App() {
       <Route  path='/mycases' element={isAuthenticated?<LawyerCases/>:<Login/>}/>
       <Route  path='/user/:id' element={isAuthenticated?<GetClientProfile/>:<Login/>}/>
      
+     {/* Admin Dashboard Routs */}
+     <Route  path='/admin' element={<AdminLogin/>}/>
+     <Route  path='/admin/users' element={<Users/>}/>
+     <Route  path='/admin/cases' element={<Cases/>}/>
      
 
     </Routes>

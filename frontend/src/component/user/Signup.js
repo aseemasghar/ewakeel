@@ -19,7 +19,7 @@ const Signup = () => {
 
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { loading, error } = useSelector((state) => state.user);
+  const { loading, error,message } = useSelector((state) => state.user);
 
   const submitClient = (e) => {
     e.preventDefault();
@@ -37,8 +37,12 @@ const Signup = () => {
       alert.error(error);
       dispatch({ type: "clearErrors" });
     }
+    if (message) {
+      alert.success(message);
+      dispatch({ type: "clearMessage" });
+    }
     
-  }, [dispatch, error, alert]);
+  }, [dispatch, error, alert,message]);
 
 
   const lawyerTab = useRef(null);
@@ -82,6 +86,7 @@ const Signup = () => {
               <div className="col">
                 <input
                   type="text"
+                  required
                   className="form-control"
                   placeholder="Name"
                   aria-label="Name"
@@ -92,6 +97,7 @@ const Signup = () => {
               <div className="col">
                 <input
                   type="email"
+                  required
                   className="form-control"
                   id="lawyer-email"
                   placeholder="Email"
@@ -105,6 +111,7 @@ const Signup = () => {
               <div className="col">
                 <input
                   type="password"
+                  required
                   className="form-control"
                   id="lawyer-password"
                   placeholder="Password"
@@ -116,6 +123,7 @@ const Signup = () => {
               <div className="col">
                 <input
                   type="password"
+                  required
                   className="form-control"
                   id="confirm-lawyer-password"
                   placeholder="Confirm Password"
@@ -129,6 +137,7 @@ const Signup = () => {
               <div className="col-md-6">
                 <input
                   type="text"
+                  required
                   className="form-control"
                   id="inputCity"
                   placeholder="City"
@@ -148,6 +157,7 @@ const Signup = () => {
               <div className="col my-3">
                 <input
                   type="text"
+                  required
                   className="form-control"
                   id="inputAddress"
                   placeholder="Address"
@@ -160,6 +170,7 @@ const Signup = () => {
               <div className="col-md-6">
                 <input
                   type="text"
+                  required
                   className="form-control"
                   id="inputphone"
                   placeholder="Phone"

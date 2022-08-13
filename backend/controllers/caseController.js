@@ -19,7 +19,7 @@ const user = await User.findById(req.user._id);
 user.cases.unshift(Case._id);
 await user.save();
 res.status(201).json({
-
+message:"Case Created",
     success : true,
     Case
 })
@@ -39,6 +39,11 @@ exports.getAllCases = catchAsyncErrors( async (req,res)=>{
 // Update Case
 exports.updateCase = catchAsyncErrors(async(req,res,next)=>{
     var Case = await Cases.findById(req.params.id);
+    const updatedCase = {
+        title:req.body.title,
+        city:req.body.city,
+       description:req.body.description,
+   };
     if(!Case){
         return res.status(500).json({
             success:false,
@@ -46,11 +51,12 @@ exports.updateCase = catchAsyncErrors(async(req,res,next)=>{
         })
     }
 
-    Case = await Cases.findByIdAndUpdate(req.params.id,req.body,{
+    Case = await Cases.findByIdAndUpdate(req.params.id,updatedCase,{
         new:true,
         runValidators:true
     })
     res.status(200).json({
+        message:"Details Updated",
         success:true,
         Case
     })
@@ -73,7 +79,6 @@ exports.deleteCase = catchAsyncErrors( async(req,res,next)=>{
     await Case.remove();
 
         const user = await User.findById(req.user._id);
-    
         const index = user.cases.indexOf(req.params.id);
         user.cases.splice(index, 1);
     

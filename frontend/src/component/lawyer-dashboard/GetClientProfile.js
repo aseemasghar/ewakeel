@@ -5,6 +5,7 @@ import LawyerNav from "./LawyerNav";
 import { getUserProfile } from "../../Actions/User";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import Footer from '../Footer/Footer'
 
 const GetClientProfile = () => {
   const dispatch = useDispatch();
@@ -75,6 +76,7 @@ const GetClientProfile = () => {
               </div>
             </div>
           </div>
+          <Footer/>
         </>
       )}
     </>

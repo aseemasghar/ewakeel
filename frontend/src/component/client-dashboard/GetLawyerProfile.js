@@ -5,10 +5,27 @@ import ClientNav from "./ClientNav";
 import { getUserProfile } from "../../Actions/User";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { useAlert } from "react-alert";
+import { Button, Typography, Dialog } from "@mui/material";
+import { useState } from "react";
+import { giveFeedBack } from "../../Actions/User";
+import Footer from '../Footer/Footer'
+
 
 const GetLawyerProfile = () => {
+  
+  const [feedbackValue, setfeedbackValue] = useState("");
+  const [feedbackToggle, setfeedbackToggle] = useState(false);
+  const { error,message} = useSelector((state) => state.allUsers);
+
+  const alert = useAlert();
     const dispatch = useDispatch();
   const params = useParams();
+
+  const feedbackHandler = async (e) => {
+    e.preventDefault();
+    await dispatch(giveFeedBack(params.id, feedbackValue));
+  };
 
   useEffect(() => {
     dispatch(getUserProfile(params.id));
@@ -16,8 +33,20 @@ const GetLawyerProfile = () => {
   const {
     user,
     // loading: userLoading,
-    // error: userError,
   } = useSelector((state) => state.userProfile);
+
+  useEffect(() => {
+    if (error) {
+      alert.error(error);
+      dispatch({ type: "clearErrors" });
+    }
+
+
+    if (message) {
+      alert.success(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [dispatch, error, alert, message]);
   return (
     <>
     <ClientNav/>
@@ -30,14 +59,15 @@ const GetLawyerProfile = () => {
   <h1>{user.name}</h1>
   <p className="title">{user.email}</p>
   <p>{user.phone}</p>
-  
+  <p><button onClick={() => setfeedbackToggle(!feedbackToggle)}>Give Feedback</button></p>
+ 
 </div>
 
 <div className="my-3 about">
   <h4 className="p-3 rounded text-light bg-secondary"><i className="fa-solid fa-user"></i> About</h4>
   <div className="m-3 row">
     <h6 className="col"><b> Company Name :</b> {user.companyName}</h6>
-   
+  
   </div>
   <div className="m-3 row">
     <h6 className="col-md-9"><b> About :</b> {user.about}</h6>
@@ -92,7 +122,38 @@ const GetLawyerProfile = () => {
 
 
 
+
+
+
+<Dialog
+        open={feedbackToggle}
+        onClose={() => setfeedbackToggle(!feedbackToggle)} 
+        
+      >
+        <div className="DialogBox">
+          <Typography variant="h4">Feedback</Typography>
+
+          <form className="commentForm" onSubmit={feedbackHandler}>
+            <textarea
+              type="text"
+              value={feedbackValue}
+              onChange={(e) => setfeedbackValue(e.target.value)}
+              placeholder="Details Here..."
+              required
+              rows={8}
+             
+            />
+
+            <Button  onClick={() => setfeedbackToggle(!feedbackToggle)} type="submit" variant="contained">
+              Submit
+            </Button>
+          </form>
+        </div>
+      </Dialog>
+
+     
 </div>
+<Footer/>
           </>
       )}
     

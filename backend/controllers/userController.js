@@ -18,7 +18,8 @@ exports.registeruser = catchAsyncErrors( async(req,res,next)=>{
     const user = await User.create({
     avatar:{public_id:"req.bod.public_id",url:"req.body.url"}, name,email,password,role,country,province,city,address,phone,courtType
     });
-    sendToken(user,201,res);
+    var message = 'Account Created Success';
+    sendToken(user,201,res,message);
      
 });
 
@@ -120,8 +121,8 @@ exports.updatePassword = catchAsyncErrors(async (req, res, next) => {
     user.password = req.body.newPassword;
   
     await user.save();
-  
-    sendToken(user, 200, res);
+  var message = 'Password Updated';
+    sendToken(user, 200, res,message);
   });
 
   // update User Profile
@@ -179,6 +180,8 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
     });
   });
 
+
+  //Get user cases
   exports.getMyCases = catchAsyncErrors( async (req, res,next) => {
    
       const user = await User.findById(req.user._id);
@@ -195,9 +198,9 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
       });  
   });
 
-  // Get all users(admin)
+  // Get all users
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
-    const users = await User.find();
+    const users = await User.find({"role": "lawyer"}).populate("feedbacks.user");
   
     res.status(200).json({
       success: true,
@@ -205,7 +208,8 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
     });
   });
   
-  // Get single user (admin)
+
+  // Get single user 
   exports.getSingleUser = catchAsyncErrors(async (req, res, next) => {
     const user = await User.findById(req.params.id);
   
@@ -243,4 +247,35 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
       message: "User Deleted Successfully",
     });
   });
+
+  exports.giveFeedback = catchAsyncErrors( async (req, res,next) => {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+      user.feedbacks.push({
+        user: req.user._id,
+        feedback: req.body.feedback,
+      });
+
+      await user.save();
+      return res.status(200).json({
+        success: true,
+        message: "Feedback Submitted",
+      });
+});
+
+exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
+  const users = await User.find();
+
+  res.status(200).json({
+    success: true,
+    users,
+  });
+});
   

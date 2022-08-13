@@ -2,9 +2,10 @@ import React from 'react'
 import LawyerNav from './LawyerNav'
 import './LawyerProfile.css'
 import {  useSelector } from "react-redux";
+import Footer from '../Footer/Footer';
 
 const LawyerProfile = () => {
-  const { user ,loading:userLoading} = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
 
 
 
@@ -82,6 +83,7 @@ const LawyerProfile = () => {
 
 </div>
   
+  <Footer/>
     </>
   )
 }

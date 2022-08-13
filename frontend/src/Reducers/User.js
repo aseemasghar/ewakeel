@@ -23,6 +23,7 @@ export const userReducer = createReducer(initialState,{
     RegisterSuccess: (state, action) => {
       state.loading = false;
       state.user = action.payload;
+      state.message = action.payload;
       state.isAuthenticated = true;
     },
     RegisterFailure: (state, action) => {
@@ -66,6 +67,17 @@ export const userReducer = createReducer(initialState,{
       state.loading = false;
       state.error = action.payload;
     },
+    addFeedBackRequest: (state) => {
+      state.loading = true;
+    },
+    addFeedBackSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    addFeedBackFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   
     LogoutUserRequest: (state) => {
       state.loading = true;
@@ -98,6 +110,23 @@ export const userReducer = createReducer(initialState,{
       state.user = action.payload;
     },
     userProfileFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    clearErrors: (state) => {
+      state.error = null;
+    },
+  });
+
+  export const allUsersReducer = createReducer(initialState, {
+    allUsersRequest: (state) => {
+      state.loading = true;
+    },
+    allUsersSuccess: (state, action) => {
+      state.loading = false;
+      state.users = action.payload;
+    },
+    allUsersFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

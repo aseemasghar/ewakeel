@@ -1,7 +1,8 @@
 import React,{useState} from 'react'
-import {useDispatch} from 'react-redux'
+import {useDispatch,useSelector} from 'react-redux'
 import { loginUser } from '../../Actions/User';
-// import { useEffect } from "react";
+import { useEffect } from "react";
+import { useAlert } from "react-alert";
 // import { loadUser } from "../../Actions/User";
 import {useNavigate} from 'react-router-dom';
 
@@ -13,19 +14,37 @@ const Login = () => {
   const [role, setRole] = useState("");
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const alert = useAlert();
+
+  const {  error,message } = useSelector((state) => state.user);
+
+
+
 const LoginHandler = (e)=>{
 e.preventDefault();
 dispatch(loginUser(email,password));
 if(role==="client"){
-  navigate('/my-account')
+  navigate('/client-home')
 }
 else if(role==="lawyer"){
   navigate('/myaccount');
 }
 else{
-  navigate('/');
+  navigate('');
 }
 }
+useEffect(() => {
+  if (error) {
+    alert.error(error);
+    dispatch({ type: "clearErrors" });
+  }
+  if (message) {
+    alert.success(message);
+    dispatch({ type: "clearMessage" });
+  }
+  
+}, [dispatch, error, alert ,message]);
+
 
   return (
     <>

@@ -4,11 +4,12 @@ import ClientNav from './ClientNav.js'
 // import { useEffect} from "react";
 import {  useSelector } from "react-redux";
 // import { loadUser } from '../../Actions/User';
+import Footer from '../Footer/Footer';
 
 const MyProfile = () => {
 
   // const dispatch = useDispatch();
-  const { user ,loading:userLoading} = useSelector((state) => state.user);
+  const { user} = useSelector((state) => state.user);
   
 
   return (
@@ -22,7 +23,7 @@ const MyProfile = () => {
   <h1>{user.name}</h1>
   <p className="title">{user.email}</p>
   <p>{user.phone}</p>
-  <p><button>Contact Me</button></p>
+
 </div>
 
 <div className="my-3 contact">
@@ -48,7 +49,7 @@ const MyProfile = () => {
 
 
 </div>
-
+<Footer/>
 </>
   )
 }

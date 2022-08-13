@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import {caseReducer,allCasesReducer, myCasesReducer, newCaseReducer } from "./Reducers/Case";
-import { userReducer,getUserProfileReducer } from "./Reducers/User";
+import { userReducer,getUserProfileReducer,allUsersReducer } from "./Reducers/User";
 
 
 const store = configureStore({
@@ -11,6 +11,7 @@ myCases : myCasesReducer,
 newCase : newCaseReducer,
 allCases: allCasesReducer,
 userProfile: getUserProfileReducer,
+allUsers: allUsersReducer,
   },
 });
 

@@ -92,6 +92,11 @@ export const registerUser =
         type: "RegisterSuccess",
         payload: data.user,
       });
+      dispatch({
+        type: "RegisterSuccess",
+        payload: data.message,
+      });
+     
     } catch (error) {
       dispatch({
         type: "RegisterFailure",
@@ -247,3 +252,53 @@ export const logoutUser = () => async (dispatch) => {
     });
   }
 };
+
+export const giveFeedBack = (lawyerid, feedback) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "addFeedBackRequest",
+    });
+
+    const { data } = await axios.post(
+      `/api/v1/user/feedback/${lawyerid}`,
+      {
+   
+        feedback,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    dispatch({
+      type: "addFeedBackSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addFeedBackFailure",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const getAllUsers = () =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "allUsersRequest",
+      });
+
+      const { data } = await axios.get("/api/v1/all/users");
+      dispatch({
+        type: "allUsersSuccess",
+        payload: data.users,
+      });
+    } catch (error) {
+      dispatch({
+        type: "allUsersFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };

@@ -77,6 +77,17 @@ const userSchema = new mongoose.Schema({
         ref: "Cases",
       },
     ],
+    feedbacks: [
+      {
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "user",
+        },
+        feedback: {
+          type: String,
+        },
+      },
+    ],
 
     resetPasswordToken: String,
     resetPasswordExpire: Date,

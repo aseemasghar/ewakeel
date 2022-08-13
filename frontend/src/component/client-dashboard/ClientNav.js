@@ -6,7 +6,7 @@ import { logoutUser } from "../../Actions/User";
 
 const ClientNav = () => {
 
-  const { user, loading: userLoading } = useSelector((state) => state.user);
+  const { user,  } = useSelector((state) => state.user);
   
 
   const dispatch = useDispatch();
@@ -17,12 +17,15 @@ const ClientNav = () => {
   return (
     <>
   <nav className="navbar navbar-expand-lg sticky-top  navbar-dark bg-dark">
-  <Link className="navbar-brand mx-2" to="/my-account"><i className="fa-solid fa-scale-balanced"></i> EWakeel</Link>
+  <Link className="navbar-brand mx-2" to="/my-account"><i className="fa-solid fa-scale-balanced"></i> EasyWakeel</Link>
   {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button> */}
   <div className="collapse navbar-collapse" id="navbarText">
     <ul className="navbar-nav mr-auto">
+    <li className="nav-item">
+        <Link className="nav-link" to="/client-home"><i className="bi bi-house"></i> Home</Link>
+      </li>
       <li className="nav-item">
         <Link className="nav-link" to="/my-account"><i className="bi bi-person"></i> My Profile</Link>
       </li>
