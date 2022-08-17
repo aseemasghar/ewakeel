@@ -39,9 +39,12 @@ const Cases = ({
     dispatch(getMyCases());
   };
   const deleteCaseHandler = async () => {
+    const isSure = window.confirm("Are you sure to delete this case");
+    if(isSure){
     await dispatch(deleteCase(caseId));
     dispatch(getMyCases());
     dispatch(loadUser());
+    }
   };
 
   return (

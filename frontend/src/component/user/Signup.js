@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { Link } from "react-router-dom";
 import "./Signup.css";
@@ -19,18 +19,29 @@ const Signup = () => {
 
   const dispatch = useDispatch();
   const alert = useAlert();
-  const { loading, error,message } = useSelector((state) => state.user);
+  const { loading, error, message } = useSelector((state) => state.user);
 
   const submitClient = (e) => {
     e.preventDefault();
-    dispatch(registerUser(name, email, password,confirmPassword,role));
+    dispatch(registerUser(name, email, password, confirmPassword, role));
   };
   const submitLawyer = (e) => {
     e.preventDefault();
-    dispatch(registerUser(name, email, password,confirmPassword,role,city,country,address,phone,courtType));
+    dispatch(
+      registerUser(
+        name,
+        email,
+        password,
+        confirmPassword,
+        role,
+        city,
+        country,
+        address,
+        phone,
+        courtType
+      )
+    );
   };
-  
- 
 
   useEffect(() => {
     if (error) {
@@ -41,14 +52,11 @@ const Signup = () => {
       alert.success(message);
       dispatch({ type: "clearMessage" });
     }
-    
-  }, [dispatch, error, alert,message]);
-
+  }, [dispatch, error, alert, message]);
 
   const lawyerTab = useRef(null);
   const clientTab = useRef(null);
   const switcherTab = useRef(null);
-
 
   const switchTabs = (e, tab) => {
     if (tab === "lawyer") {
@@ -81,7 +89,11 @@ const Signup = () => {
             </div>
           </div>
           <button className="bottom-bar" ref={switcherTab}></button>
-          <form onSubmit={submitLawyer} className="row g-3 my-3" ref={lawyerTab}>
+          <form
+            onSubmit={submitLawyer}
+            className="row g-3 my-3"
+            ref={lawyerTab}
+          >
             <div className="row lawyerForm">
               <div className="col">
                 <input
@@ -147,7 +159,11 @@ const Signup = () => {
                 />
               </div>
               <div className="col-md-4">
-                <select onChange={(e) => setCountry(e.target.value)} id="inputState" className="form-select">
+                <select
+                  onChange={(e) => setCountry(e.target.value)}
+                  id="inputState"
+                  className="form-select"
+                >
                   <option>...</option>
                   <option>Pakistan</option>
                 </select>
@@ -169,7 +185,8 @@ const Signup = () => {
             <div className="row">
               <div className="col-md-6">
                 <input
-                  type="text"
+                 maxLength="4"
+                  type="number"
                   required
                   className="form-control"
                   id="inputphone"
@@ -182,7 +199,11 @@ const Signup = () => {
             <div className="row my-3">
               <p>Court Type dealing with</p>
               <div className="col-md-6">
-                <select onChange={(e) => setcourtType(e.target.value)} id="inputcourt" className="form-select">
+                <select
+                  onChange={(e) => setcourtType(e.target.value)}
+                  id="inputcourt"
+                  className="form-select"
+                >
                   <option>Select</option>
                   <option>Supreme Court</option>
                   <option>High Court</option>
@@ -193,7 +214,12 @@ const Signup = () => {
             </div>
             <div className="row">
               <div className="col-12 my-3">
-                <button onClick={(e) => setRole('lawyer')} disabled={loading} type="submit" className="btn btn-dark w-100">
+                <button
+                  onClick={(e) => setRole("lawyer")}
+                  disabled={loading}
+                  type="submit"
+                  className="btn btn-dark w-100"
+                >
                   Sign up
                 </button>
                 <div className="already my-1">
@@ -205,8 +231,11 @@ const Signup = () => {
             </div>
           </form>
 
-
-          <form onSubmit={submitClient} className="row g-3 my-3 client-form" ref={clientTab}>
+          <form
+            onSubmit={submitClient}
+            className="row g-3 my-3 client-form"
+            ref={clientTab}
+          >
             <div className="row">
               <div className="col">
                 <input
@@ -239,7 +268,7 @@ const Signup = () => {
                   placeholder="Password"
                   aria-label="Password"
                   value={password}
-                 onChange={(e) => setPassword(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="col">
@@ -256,7 +285,12 @@ const Signup = () => {
             </div>
             <div className="row">
               <div className="col-12 my-3">
-                <button onClick={(e) => setRole('client')} disabled={loading} type="submit" className="btn btn-dark w-100">
+                <button
+                  onClick={(e) => setRole("client")}
+                  disabled={loading}
+                  type="submit"
+                  className="btn btn-dark w-100"
+                >
                   Sign up
                 </button>
                 <div className="already my-1">

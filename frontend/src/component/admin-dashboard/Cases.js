@@ -6,19 +6,26 @@ import { useDispatch, useSelector } from "react-redux";
 import {getAllCases } from "../../Actions/Case";
 
 const Cases = () => {
-    const { cases } = useSelector((state) => state.allCases);
+  
     const dispatch = useDispatch();
 
     useEffect(() => {
         dispatch(getAllCases());
       }, [dispatch]);
+      const { cases } = useSelector((state) => state.allCases);
+    //  console.log(cases.length)
   return (
     <>
-    <AdminNav/>
-
-    <h4 className="mt-4 p-4 container rounded text-light bg-secondary">
+    <AdminNav/> 
+<div className="d-flex flex-row mt-4 p-4 container rounded text-light bg-secondary">
+<h4 className='flex-grow-1'>
           <i className="bi bi-briefcase"></i> All Cases
         </h4>
+        <h4>
+          {/* Total Cases: {cases.length} */}
+        </h4>
+</div>
+   
      {cases && cases.length > 0 ? (
           cases.map((Case) => (
             <CasesList

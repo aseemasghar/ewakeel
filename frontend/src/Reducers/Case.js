@@ -36,6 +36,17 @@ export const caseReducer = createReducer(initialState, {
     state.loading = false;
     state.error = action.payload;
   },
+  admindeleteCaseRequest: (state) => {
+    state.loading = true;
+  },
+  admindeleteCaseSuccess: (state, action) => {
+    state.loading = false;
+    state.message = action.payload;
+  },
+  admindeleteCaseFailure: (state, action) => {
+    state.loading = false;
+    state.error = action.payload;
+  },
   clearErrors: (state) => {
     state.error = null;
   },

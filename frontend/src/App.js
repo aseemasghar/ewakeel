@@ -33,7 +33,10 @@ import GetClientProfile from './component/lawyer-dashboard/GetClientProfile';
 //Admin Dashboard
 import AdminLogin from './component/admin-dashboard/AdminLogin'
 import Cases from './component/admin-dashboard/Cases';
-import Users from './component/admin-dashboard/Users';
+import Lawyers from './component/admin-dashboard/Lawyers';
+import Clients from './component/admin-dashboard/Clients';
+import GetClient from './component/admin-dashboard/GetClient';
+import GetLawyer from './component/admin-dashboard/GetLawyer';
 
 
 function App() {
@@ -75,8 +78,11 @@ function App() {
      
      {/* Admin Dashboard Routs */}
      <Route  path='/admin' element={<AdminLogin/>}/>
-     <Route  path='/admin/users' element={<Users/>}/>
+     <Route  path='/admin/lawyers' element={<Lawyers/>}/>
+     <Route  path='/admin/clients' element={<Clients/>}/>
      <Route  path='/admin/cases' element={<Cases/>}/>
+     <Route  path='/client/:id' element={<GetClient/>}/>
+     <Route  path='/admin/lawyer/:id' element={<GetLawyer/>}/>
      
 
     </Routes>

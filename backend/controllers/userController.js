@@ -226,28 +226,7 @@ exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
   });
 
   
-// Delete User --Admin
-exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
-    const user = await User.findById(req.params.id);
-  
-    if (!user) {
-      return next(
-        new ErrorHandler(`User does not exist with Id: ${req.params.id}`, 400)
-      );
-    }
-  
-    // const imageId = user.avatar.public_id;
-  
-    // await cloudinary.v2.uploader.destroy(imageId);
-  
-    await user.remove();
-  
-    res.status(200).json({
-      success: true,
-      message: "User Deleted Successfully",
-    });
-  });
-
+//Give feedback
   exports.giveFeedback = catchAsyncErrors( async (req, res,next) => {
     const user = await User.findById(req.params.id);
 
@@ -270,6 +249,8 @@ exports.deleteUser = catchAsyncErrors(async (req, res, next) => {
       });
 });
 
+
+//Get all users
 exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
   const users = await User.find();
 
@@ -279,3 +260,93 @@ exports.getAllUsers = catchAsyncErrors(async (req, res, next) => {
   });
 });
   
+//Delete user
+exports.deleteUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.userid);
+    const cases = user.cases;
+    const userId = req.params.userid;
+   
+
+    // Removing Avatar from cloudinary
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id);
+
+    await user.remove();
+
+
+    // Delete all cases of the user
+    
+    for (let i = 0; i < cases.length; i++) {
+      const Case = await Cases.findById(cases[i]);
+      await Case.remove();
+      }
+      
+   
+    // removing all bids of the user from all cases
+    const allcases = await Cases.find();
+
+    for (let i = 0; i < allcases.length; i++) {
+      const Case = await Cases.findById(allcases[i]._id);
+
+   
+     
+      for (let j = 0; j < Case.comments.length; j++) {
+       
+        if (Case.comments[j].user == userId) {
+          Case.comments.splice(j, 1);
+        }
+      }
+      await Case.save();
+    }
+
+//Remove all feedbacks
+    const allusers = await User.find();
+
+    for (let i = 0; i < allusers.length; i++) {
+      const user = await User.findById(allusers[i]._id);
+
+   
+     
+      for (let j = 0; j < user.feedbacks.length; j++) {
+       
+        if (user.feedbacks[j].user == userId) {
+          user.feedbacks.splice(j, 1);
+        }
+      }
+      await user.save();
+    }
+    
+
+
+    res.status(200).json({
+      success: true,
+      message: "User Deleted",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+
+//Get all Lawyers
+exports.getAllLawyers = catchAsyncErrors(async (req, res, next) => {
+  const lawyers = await User.find({"role": "lawyer"});
+
+  res.status(200).json({
+    success: true,
+    lawyers,
+  });
+});
+
+//Get all Clients
+exports.getAllClients = catchAsyncErrors(async (req, res, next) => {
+  const clients = await User.find({"role": "client"});
+
+  res.status(200).json({
+    success: true,
+    clients,
+  });
+});

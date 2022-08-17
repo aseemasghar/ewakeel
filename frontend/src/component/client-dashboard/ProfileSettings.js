@@ -112,7 +112,7 @@ const Profilesettings = () => {
                 will be used
               </p>
               <p>
-                <b>MAX UPLOAD SIZE :</b> 1MB
+                <b>MAX UPLOAD SIZE :</b> 5MB
               </p>
               <p>
                 <b>DIMENSIONS :</b> 150X150

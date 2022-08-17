@@ -31,6 +31,7 @@ else if(role==="lawyer"){
 }
 else{
   navigate('');
+  alert.error('Select Role');
 }
 }
 useEffect(() => {

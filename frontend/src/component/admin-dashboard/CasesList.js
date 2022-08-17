@@ -1,7 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom';
-import { Avatar,Button, Typography, Dialog } from "@mui/material";
+import { Avatar, Typography } from "@mui/material";
 import './CaseList.css'
+import { admindeleteCase,getAllCases } from '../../Actions/Case';
+import { useDispatch } from "react-redux";
 const CasesList = ({
     caseId,
     title,
@@ -12,6 +14,15 @@ const CasesList = ({
   userImage,
   userId,
 }) => {
+  const dispatch = useDispatch();
+  const deleteCaseHandler = async () => {
+   const isSure = window.confirm("Are you sure to delete this case");
+   if(isSure){
+    await dispatch(admindeleteCase(caseId,userId));
+    dispatch(getAllCases());
+   }
+  };
+
   return (
     <div>
         <div className="container">
@@ -45,7 +56,7 @@ const CasesList = ({
       <b>Case Description : </b>{description}
     </h6>
     {/* onClick={() => setCaseToggle(!caseToggle)} */}
-     <button  className="col-md-4 mx-2 mb-2 w-25 btn btn-danger">
+     <button onClick={deleteCaseHandler}  className="col-md-4 mx-2 mb-2 w-25 btn btn-danger">
       Delete
     </button>
    

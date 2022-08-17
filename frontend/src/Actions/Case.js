@@ -122,10 +122,32 @@ export const createNewCase = (title,city,description) => async (dispatch) => {
       dispatch({
         type: "allCasesSuccess",
         payload: data.cases,
+      
       });
+   
     } catch (error) {
       dispatch({
         type: "allCasesFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+
+  export const admindeleteCase = (id,userId) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "deleteCaseRequest",
+      });
+  
+      const { data } = await axios.delete(`/api/v1/admin/case/${id}/${userId}`);
+      dispatch({
+        type: "deleteCaseSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "deleteCaseFailure",
         payload: error.response.data.message,
       });
     }

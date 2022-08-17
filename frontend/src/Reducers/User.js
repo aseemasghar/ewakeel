@@ -92,6 +92,17 @@ export const userReducer = createReducer(initialState,{
       state.error = action.payload;
       state.isAuthenticated = true;
     },
+    admindeleteUserRequest: (state) => {
+      state.loading = true;
+    },
+    admindeleteUserSuccess: (state, action) => {
+      state.loading = false;
+      state.message = action.payload;
+    },
+    admindeleteUserFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
   
     clearErrors: (state) => {
       state.error = null;
@@ -127,6 +138,28 @@ export const userReducer = createReducer(initialState,{
       state.users = action.payload;
     },
     allUsersFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    allClientsRequest: (state) => {
+      state.loading = true;
+    },
+    allClientsSuccess: (state, action) => {
+      state.loading = false;
+      state.clients = action.payload;
+    },
+    allClientsFailure: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    allLawyersRequest: (state) => {
+      state.loading = true;
+    },
+    allLawyersSuccess: (state, action) => {
+      state.loading = false;
+      state.lawyers = action.payload;
+    },
+    allLawyersFailure: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     },

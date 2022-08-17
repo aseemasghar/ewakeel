@@ -16,7 +16,10 @@ const AdminNav = () => {
         <Link className="nav-link" to="/admin/cases"><i className="bi bi-briefcase"></i> All Cases</Link>
       </li>
       <li className="nav-item">
-        <Link className="nav-link" to="/admin/users"><i className="bi bi-person"></i> All Users</Link>
+        <Link className="nav-link" to="/admin/clients"><i className="bi bi-person"></i> Clients</Link>
+      </li>
+      <li className="nav-item">
+        <Link className="nav-link" to="/admin/lawyers"><i className="bi bi-person"></i> Lawyers</Link>
       </li>
      
 

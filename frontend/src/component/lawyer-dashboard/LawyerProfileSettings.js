@@ -114,7 +114,7 @@ const LawyerProfileSettings = () => {
                 will be used
               </p>
               <p>
-                <b>MAX UPLOAD SIZE :</b> 1MB
+                <b>MAX UPLOAD SIZE :</b> 5MB
               </p>
               <p>
                 <b>DIMENSIONS :</b> 150X150
@@ -210,7 +210,7 @@ const LawyerProfileSettings = () => {
                   Phone no
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="phone"
                   placeholder="Phone no..."
@@ -225,7 +225,7 @@ const LawyerProfileSettings = () => {
                   Landline
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="landline"
                   placeholder="Landline..."

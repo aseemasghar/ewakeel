@@ -1,5 +1,6 @@
 import axios from "axios";
 
+//Login user
 export const loginUser = (email, password) => async (dispatch) => {
   try {
     dispatch({
@@ -48,6 +49,8 @@ export const loadUser = () => async (dispatch) => {
     });
   }
 };
+
+//Register user
 export const registerUser =
   (
     name,
@@ -105,6 +108,8 @@ export const registerUser =
     }
   };
 
+
+  //Get my cases
 export const getMyCases = () => async (dispatch) => {
   try {
     dispatch({
@@ -123,6 +128,8 @@ export const getMyCases = () => async (dispatch) => {
     });
   }
 };
+
+//Update profile
 export const updateProfile =
   (
     avatar,
@@ -186,6 +193,8 @@ export const updateProfile =
       });
     }
   };
+
+  //Update Password
 export const updatePassword =
   (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
     try {
@@ -215,6 +224,7 @@ export const updatePassword =
     }
   };
 
+  //Get user profile
   export const getUserProfile = (id) => async (dispatch) => {
     try {
       dispatch({
@@ -234,6 +244,8 @@ export const updatePassword =
     }
   };
 
+
+  //Logout user
 export const logoutUser = () => async (dispatch) => {
   try {
     dispatch({
@@ -253,6 +265,8 @@ export const logoutUser = () => async (dispatch) => {
   }
 };
 
+
+//Give feedback
 export const giveFeedBack = (lawyerid, feedback) => async (dispatch) => {
   try {
     dispatch({
@@ -283,6 +297,7 @@ export const giveFeedBack = (lawyerid, feedback) => async (dispatch) => {
   }
 };
 
+//Get all users
 export const getAllUsers = () =>
   async (dispatch) => {
     try {
@@ -298,6 +313,70 @@ export const getAllUsers = () =>
     } catch (error) {
       dispatch({
         type: "allUsersFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  //Get all clients(admin)
+  export const getAllClients = () =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "allClientsRequest",
+      });
+
+      const { data } = await axios.get("/api/v1/admin/all/clients");
+      dispatch({
+        type: "allClientsSuccess",
+        payload: data.clients,
+      });
+    } catch (error) {
+      dispatch({
+        type: "allClientsFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+  //Get all lawyer(admin)
+  export const getAllLawyers = () =>
+  async (dispatch) => {
+    try {
+      dispatch({
+        type: "allLawyersRequest",
+      });
+
+      const { data } = await axios.get("/api/v1/admin/all/lawyers");
+      dispatch({
+        type: "allLawyersSuccess",
+        payload: data.lawyers,
+      });
+    } catch (error) {
+      dispatch({
+        type: "allLawyersFailure",
+        payload: error.response.data.message,
+      });
+    }
+  };
+
+
+//Delete user(admin)
+
+  export const admindeleteUser = (id) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "admindeleteUserRequest",
+      });
+  
+      const { data } = await axios.delete(`/api/v1/admin/user/${id}`);
+      dispatch({
+        type: "admindeleteUserSuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "admindeleteUserFailure",
         payload: error.response.data.message,
       });
     }

@@ -30,6 +30,7 @@ message:"Case Created",
 exports.getAllCases = catchAsyncErrors( async (req,res)=>{
     // const user = req.user.id;
     const cases = await Cases.find().populate("user");
+  
 
     res.status(200).json({
         success:true,
@@ -128,6 +129,36 @@ exports.getCaseDetails = catchAsyncErrors( async (req,res,next)=>{
         Case
     })
     
+})
+
+
+//Delete case by admin
+exports.deleteadminCase = catchAsyncErrors( async(req,res,next)=>{
+    const Case = await Cases.findById(req.params.id);
+    if(!Case){
+        return res.status(500).json({
+            success:false,
+            message:"Case not found"
+        })
+    }
+    // if (Case.user.toString() !== req.user._id.toString()) {
+    //     return res.status(401).json({
+    //       success: false,
+    //       message: "Unauthorized",
+    //     });
+    await Case.remove();
+
+        const user = await User.findById(req.params.userid);
+        const index = user.cases.indexOf(req.params.id);
+        user.cases.splice(index, 1);
+    
+        await user.save();
+
+    res.status(200).json({
+        success:true,
+        message:"Case deleted Successfully"
+    })
+
 })
 
 

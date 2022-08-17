@@ -1,29 +1,27 @@
-import React from "react";
+import React from 'react'
+import AdminNav from './AdminNav'
 import { useEffect } from "react";
-import "./GetClientProfile.css";
-import LawyerNav from "./LawyerNav";
+import "../lawyer-dashboard/GetClientProfile.css";
 import { getUserProfile } from "../../Actions/User";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import Footer from '../Footer/Footer'
 
-const GetClientProfile = () => {
-  const dispatch = useDispatch();
-  const params = useParams();
-
-  useEffect(() => {
-    dispatch(getUserProfile(params.id));
-  }, [dispatch, params.id]);
-  const {
-    user,
-    // loading: userLoading,
-    // error: userError,
-  } = useSelector((state) => state.userProfile);
-
+const GetClient = () => {
+    const dispatch = useDispatch();
+    const params = useParams();
+  
+    useEffect(() => {
+      dispatch(getUserProfile(params.id));
+    }, [dispatch, params.id]);
+    const {
+      user,
+      // loading: userLoading,
+      // error: userError,
+    } = useSelector((state) => state.userProfile);
   return (
     <>
-      <LawyerNav />
-      {user && (
+    <AdminNav/>
+    {user && (
         <>
           <div className="container">
             <div className="my-2 card">
@@ -31,7 +29,7 @@ const GetClientProfile = () => {
               <h1>{user.name}</h1>
               <p className="title">{user.email}</p>
               <p>{user.phone}</p>
-              
+             
             </div>
 
             <div className="my-3 contact">
@@ -74,11 +72,11 @@ const GetClientProfile = () => {
               </div>
             </div>
           </div>
-          <Footer/>
+          
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default GetClientProfile;
+export default GetClient
