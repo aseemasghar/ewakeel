@@ -30,7 +30,7 @@ const GetClientProfile = () => {
               <img src={user.avatar.url} alt="User" />
               <h1>{user.name}</h1>
               <p className="title">{user.email}</p>
-              <p>{user.phone}</p>
+              <p className="bg-success rounded "><a className="text-white" href={`https://wa.me/${user.phone}`}><i class="fa-brands fa-whatsapp"></i></a></p>
               
             </div>
 

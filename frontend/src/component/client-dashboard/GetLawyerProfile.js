@@ -4,7 +4,7 @@ import "./GetLawyerProfile.css";
 import ClientNav from "./ClientNav";
 import { getUserProfile } from "../../Actions/User";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import {  useParams } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { Button, Typography, Dialog } from "@mui/material";
 import { useState } from "react";
@@ -53,13 +53,14 @@ const GetLawyerProfile = () => {
     {user && (
         <>
           <div className="container">
-    
+       
     <div className="my-2 card">
+
   <img src={user.avatar.url} alt="Lawyer Avatar" />
   <h1>{user.name}</h1>
   <p className="title">{user.email}</p>
-  <p>{user.phone}</p>
-  <p><button onClick={() => setfeedbackToggle(!feedbackToggle)}>Give Feedback</button></p>
+  <p className="bg-success rounded "><a className="text-white" href={`https://wa.me/${user.phone}`}><i class="fa-brands fa-whatsapp"></i></a></p>
+  <p><button className="rounded" onClick={() => setfeedbackToggle(!feedbackToggle)}>Give Feedback</button></p>
  
 </div>
 

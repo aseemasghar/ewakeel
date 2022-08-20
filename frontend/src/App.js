@@ -39,6 +39,9 @@ import GetClient from './component/admin-dashboard/GetClient';
 import GetLawyer from './component/admin-dashboard/GetLawyer';
 
 
+import Speech from './Speech'
+
+
 function App() {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -83,6 +86,10 @@ function App() {
      <Route  path='/admin/cases' element={<Cases/>}/>
      <Route  path='/client/:id' element={<GetClient/>}/>
      <Route  path='/admin/lawyer/:id' element={<GetLawyer/>}/>
+
+
+    {/* Speech rout */}
+     <Route  path='/speech' element={<Speech/>}/>
      
 
     </Routes>
