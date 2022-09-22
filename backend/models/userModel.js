@@ -14,6 +14,11 @@ const userSchema = new mongoose.Schema({
       required: [true, "Please Enter Your Name"],
       maxLength: [30, "Name cannot exceed 30 characters"],
       minLength: [4, "Name should have more than 4 characters"],
+      validate: {
+        validator: val => validator.isAlpha(val, ["en-US"], { ignore: " -" }), 
+        //" =" => " " & "-"
+        message: "Name must only contain characters between A-Z",
+      },
     },
     companyName:{
       type: String,
@@ -35,11 +40,11 @@ const userSchema = new mongoose.Schema({
     },
     phone: {
       type: String,
-      // maxLength: [15, "Phone cannot exceed 15 characters"],
+      maxLength: [11, "Phone cannot exceed 15 characters"],
     },
     landline: {
       type: String,
-      // maxLength: [20, "Phone cannot exceed 20 characters"],
+      maxLength: [11, "Phone cannot exceed 20 characters"],
     },
     skype: {
       type: String,

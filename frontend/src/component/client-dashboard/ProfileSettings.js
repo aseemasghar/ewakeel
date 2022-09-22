@@ -181,7 +181,7 @@ const Profilesettings = () => {
                   Phone no
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control"
                   id="phone"
                   placeholder="Phone no"
